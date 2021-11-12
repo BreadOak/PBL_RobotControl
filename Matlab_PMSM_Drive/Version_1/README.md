@@ -1,1 +1,5 @@
-
+- Current Control
+- Velocity Control
+- Position Contorl
+- Sellect Control mode
+- Same Control Frequency
