@@ -1,1 +1,3 @@
-
+- Currnet Control
+- Velocity Control
+- Same Control Frequency
