@@ -15,7 +15,11 @@ pubMsg_2.data = 2;
 % publish 'Hello' 10 times to the /topic_1
 for x = 1:10000
     send(pub,pubMsg)
+    pubMsg.data = pubMsg.data + 1;
     send(pub_1,pubMsg_2)
     disp('msg sent')
     pause(0.01)
 end
+
+clear all
+clc
