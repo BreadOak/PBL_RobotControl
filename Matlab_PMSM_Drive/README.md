@@ -5,3 +5,5 @@
 - Version_3 : Model Predictive Control(MPC).
 - Version_4 : Multi-Parametric Toolbox(MPT) based MPC.
 - Version_5 : Disturbance Observer(DOB).
+- Version_6 : H-infinity Control. -> It's incomplete.
+- Version_alpha : Integrated controller.
