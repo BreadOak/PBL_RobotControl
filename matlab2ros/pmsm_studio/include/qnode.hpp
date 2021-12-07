@@ -23,6 +23,7 @@
 using namespace std;
 using std::placeholders::_1;
 
+/* PMSM CLASS */
 class PMSM : public rclcpp::Node
 {
 public:
@@ -34,27 +35,21 @@ public:
 
 private:
     /* subscriber */
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr data_subscriber1_;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr data_subscriber2_;
-    rclcpp::Subscription<voltages>::SharedPtr voltage_subscriber_;
-    
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr data_subscriber_pmsm_;
     /* publisher */
-    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr data_publisher_;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr data_publisher_pmsm_;
+    std_msgs::msg::Float64 msg_;
     
     /* Timer interrupt */
     rclcpp::TimerBase::SharedPtr timer_;
-
-    void subscribe_topic_message1(const std_msgs::msg::Float64::SharedPtr msg);
-    void subscribe_topic_message2(const std_msgs::msg::Float64::SharedPtr msg);
-
-    void publish_topic_message();
-    
     void timerInterrupt();
 
-    std_msgs::msg::Float64 msg_;
+    /* subscription callabck func */
+    void subscribe_topic_message_pmsm(const std_msgs::msg::Float64::SharedPtr msg);
 };
 
 
+/* QNode CLASS */
 class QNode : public QThread
 {
     Q_OBJECT
@@ -64,6 +59,11 @@ public:
 	void init();
     void run();
 
+    void sendData();
+    void subscribe_voltage_qnode(const std_msgs::msg::Float64::SharedPtr msg);
+    void subscribe_ampere_qnode(const std_msgs::msg::Float64::SharedPtr msg);
+    void subscribe_gain_qnode(const std_msgs::msg::Float64::SharedPtr msg);
+
 Q_SIGNALS:
     void rosShutdown();
 
@@ -72,4 +72,8 @@ private:
 	char** init_argv;
     
     std::shared_ptr<rclcpp::Node> node;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr data_publisher_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr vol_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr amp_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr gain_subscriber_qnode_;
 };
