@@ -22,6 +22,7 @@ namespace pmsm_studio
 
     public Q_SLOTS:
         void realtimeDataSlot();
+        void on_none_module_button_clicked();
         // void updatePoses();
 
     private:

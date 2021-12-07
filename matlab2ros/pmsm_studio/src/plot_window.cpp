@@ -1,5 +1,5 @@
 /*
- * main_window.cpp
+ * plot_window.cpp
  *      Author: junyoung kim / lgkimjy
  */
 
@@ -19,6 +19,8 @@ namespace pmsm_studio
 
 		// Plot_Init(ui.plot_pmsm, -50, 50, 10);
         Plot_example(ui.plot_pmsm);
+        Plot_example(ui.plot_pmsm_2);
+        Plot_example(ui.plot_pmsm_3);
 	}
 
     void MainWindow::realtimeDataSlot()

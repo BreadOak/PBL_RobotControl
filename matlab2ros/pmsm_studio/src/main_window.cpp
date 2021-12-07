@@ -27,4 +27,10 @@ namespace pmsm_studio
         Plot_MakeUI();
     }
     MainWindow::~MainWindow() {}
+    
+    void MainWindow::on_none_module_button_clicked()
+    {
+        // RCLCPP_INFO(rclcpp::get_logger("PMSM Node"), "Initialize the PMSM nodes");
+        qnode.sendData();
+    }
 }
