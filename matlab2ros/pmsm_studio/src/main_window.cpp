@@ -20,10 +20,14 @@ namespace pmsm_studio
     MainWindow::MainWindow(int argc, char **argv, QWidget *parent)
     : QMainWindow(parent), qnode(argc,argv)
     {
-        ui.setupUi(this);                                                                    // Calling this incidentally connects all ui's triggers to on_...() callbacks in this class.
+        ui.setupUi(this);
+        plot_window = new QMainWindow;
+        ui_plot.setupUi(plot_window);
+        
         QObject::connect(ui.actionAbout_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt())); // qApp is a global variable for the application
         qnode.init();
         
+        QObject::connect(ui.horizontalSlider_2, SIGNAL(valueChanged(int)),this, SLOT(readvalue(int)));
         Plot_MakeUI();
     }
     MainWindow::~MainWindow() {}
@@ -32,5 +36,17 @@ namespace pmsm_studio
     {
         // RCLCPP_INFO(rclcpp::get_logger("PMSM Node"), "Initialize the PMSM nodes");
         qnode.sendData();
+    }
+        
+    void MainWindow::readvalue(int value)
+    {
+        RCLCPP_INFO(rclcpp::get_logger("PMSM Node"), "data : %d", value);
+    }
+
+    void MainWindow::on_popup_button_clicked()
+    {
+        plot_window->show();
+
+        RCLCPP_INFO(rclcpp::get_logger("PMSM Node"), "callback occured");
     }
 }
