@@ -4,12 +4,6 @@ clc
 testNode = ros2node("/matlab_node", 0);   % node initialization
 pause(1);
 
-% % Subscirber
-% sub1 = ros2subscriber(testNode1, "/topic_3", "std_msgs/Float64", @callback_func);
-% global data1;
-% sub2 = ros2subscriber(testNode1, "/topic_4", "std_msgs/Float64", @callback_func2);
-% global data2;
-
 field1 = 'label';  value1 = 'PMSM_data';
 field2 = 'size';  value2 = uint32(0);
 field3 = 'stride';  value3 = uint32(0);
@@ -36,15 +30,32 @@ Velocity_pubMsg = ros2message("std_msgs/Float64MultiArray");
 Velocity_pubMsg.layout.dim = s;
 Velocity_pubMsg.layout.data_offset = uint32(0);
 
+Angle_pub = ros2publisher(testNode,"/Angle","std_msgs/Float64MultiArray");
+Angle_pubMsg = ros2message("std_msgs/Float64MultiArray");
+Angel_pubMsg.layout.dim = s;
+Angel_pubMsg.layout.data_offset = uint32(0);
+
 %----------------------------%
 %-- Simulation setup --------%
 %----------------------------%
 
-%Tstep = 50e-9; % sampling time
-%Tsw = 41e-6;   % control time
-Tstep = 5e-5; % sampling time
-Tsw = 5e-5;
-Sampling_Step = floor(Tsw/Tstep);
+%Tstep = 50e-9; % Original Tstep
+Tstep = 1e-5;
+
+%Tsw = 41e-6;    % Original Current control step
+%Tsw_vc = 41e-5; % Original Velocity control step
+%Tsw_pc = 41e-4; % Original Position control step
+Tsw = 1e-4;
+Tsw_vc = 1e-3;            
+Tsw_pc = 1e-2;            
+
+% Sampling_Step = floor(Tsw/Tstep);
+% Sampling_Step_vc = floor(Tsw_vc/Tstep);
+% Sampling_Step_pc = floor(Tsw_pc/Tstep);
+
+Sampling_Step = 10;
+Sampling_Step_vc = 100;
+Sampling_Step_pc = 1000;
 
 TWOPI = 2*pi;
 PIover6 = pi/6;
@@ -56,9 +67,11 @@ INV3 = 1/3;
 Rpm2rm = 2*pi/60;
 Rm2rpm = 60/(2*pi);
 
-%----------------------------%
-%-- PMSM model variables ----%
-%----------------------------%
+Control_mode = 3;          % [1:Current, 2:Velocity, 3: Position]
+
+%--------------------------%
+%-- PMSM model variables --%
+%--------------------------%
 M_Ias = 0;
 M_Ibs = 0;
 M_Ics = 0;
@@ -80,9 +93,9 @@ M_Wr = 0;
 M_Thetarm = 0;
 M_Thetar = 0;
 
-%-----------------------------%
-%-- PMSM model parameters ----%
-%-----------------------------%
+%---------------------------%
+%-- PMSM model parameters --%
+%---------------------------%
 M_Lds = 1.707e-3;
 M_Lqs = 1.707e-3;
 M_Rs = 1.471;
@@ -90,14 +103,14 @@ M_LAMpm = 0.014;
 M_Pole = 8;
 M_PolePair = M_Pole/2;
 
-%-----------------------------%
-%-- Mechanical variables -----%
-%-----------------------------%
+%--------------------------%
+%-- Mechanical variables --%
+%--------------------------%
 M_TL = 0;     % Load torque profile
 
-%-----------------------------%
-%-- Mechanical parameter -----%
-%-----------------------------%
+%--------------------------%
+%-- Mechanical parameter --%
+%--------------------------%
 M_Jm = 9.039e-6;
 M_Bm = 0.001*(0.001/(2*pi));  % 0.001 [Nm/krpm]
 
@@ -115,14 +128,15 @@ M_TL_prev = 0;
 I_Carrier = 1;
 I_Del_Carrier = -1;
 
-%-----------------------------%
-%-- Inverter parameters ------%
-%-----------------------------%
+%-------------------------%
+%-- Inverter parameters --%
+%-------------------------%
 I_Vdc = 48;
 
-%-----------------------------%
-%-- Controller variables -----%
-%-----------------------------%
+%% Controler setting
+%--------------------------%
+%-- Controller variables --%
+%--------------------------%
 Thetar = 0;
 Thetarm = 0;
 Wr = 0;
@@ -130,10 +144,21 @@ Wrpm_Ref = 0;
 Wrm_Ref = 0;
 Wrm = 0;
 Wrm_Integ = 0;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Thetar_Ref = 0;
+Thetarm_Ref = 0; 
+Wrm_Integ_Ref = 0;
+Wrm_Ref_Sat = 0;
+Wrm_Ref_Fb = 0;
+Wrm_Ref_Anti = 0;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Te_Integ_Ref = 0;
 Te_Ref = 0;
 Te_Ref_Sat = 0;
 Te_Ref_Anti = 0;
+
 Iqse_Ref_Sat = 0;
 Iqse_Ref_Fb = 0; 
 Ias = 0;
@@ -145,6 +170,7 @@ Idse = 0;
 Iqse = 0;
 Idse_Ref = 0;
 Iqse_Ref = 0;
+
 Vdse_Integ_Ref = 0;
 Vqse_Integ_Ref = 0;
 Vdse_Ref = 0;
@@ -163,6 +189,7 @@ Duty_Van_Ref = 0;
 Duty_Vbn_Ref = 0;
 Duty_Vcn_Ref = 0;
 
+% motor spec
 Lds = 1.707e-3;
 Lqs = 1.707e-3;
 Rs = 1.471;
@@ -172,22 +199,38 @@ PolePair = M_Pole/2;
 Jm = 9.039e-6;
 Bm = 0.001*(0.001/(2*pi));  % 0.001 [Nm/krpm]
 Is_Rated = 4.8*sqrt(2);
+Wrm_Rated = 125*(pi/180);   % [rad/s] 
+Vdc = 48;
 
+% state variable filter setting
 Fc_PLL = 2*pi*200;
 Wc_PLL = 2*pi*Fc_PLL;
 KiT_PLL = Tsw * Wc_PLL * Wc_PLL;
 Kp_PLL = 2 * 1 * Wc_PLL;
 
+% current controller setting
 Fc_cc = 500;
 Wc_cc = 2*pi*Fc_cc;
-KidT_cc = Tsw * Rs * Wc_cc;
+KidT_cc = Tsw * Rs * Wc_cc;  % d-axis
 Kpd_cc = Lds * Wc_cc;
 Kpd_Anti_cc = 1/Kpd_cc;
-KiqT_cc = Tsw * Rs * Wc_cc;
+KiqT_cc = Tsw * Rs * Wc_cc;  % q-axis
 Kpq_cc = Lqs * Wc_cc;
 Kpq_Anti_cc = 1/Kpq_cc;
 
-Vdc = 48;
+% velocity controller setting
+Fc_vc = 50;
+Wc_vc = 2*pi*Fc_vc;
+KiT_vc = Tsw_vc * 0.2 * Jm * Wc_vc * Wc_vc;
+Kp_vc = Jm * 2 * 0.5 * Wc_vc;
+Kp_Anti_vc = 1/Kp_vc;
+
+% position controller setting
+Fc_pc = 5;
+Wc_pc = Fc_pc*2*pi;
+KiT_pc = 0;
+Kp_pc = Wc_pc;
+Kp_Anti_pc = 1/Kp_pc;
 
 Ref = 0;
 Count = 0;
@@ -196,15 +239,18 @@ Count = 0;
 while(1)
 
     SimulationTime = Count*Tstep;
-
+    
     %-- Input variables setup --%
     % Rotating speed profile
     if(SimulationTime > 0.01)
-        Ref = 0.3/(1.5*PolePair*LAMpm);
+        %Ref = 0.1/(1.5*PolePair*LAMpm); % [A] = [Nm/(1.5*PolePair*LAMpm)]
+        Ref = 5*(pi/180);               % [rad]=[deg*(pi/180)]
+        %Ref = 1000;                      % [rpm]
     end
     % Load torque profile
     if(SimulationTime > 0.03)
-        M_TL = Ref*(1.5*PolePair*LAMpm);
+        %M_TL = Ref*(1.5*PolePair*LAMpm);
+        M_TL = 0;
     end  
 
     %-- Controller --%  
@@ -224,8 +270,59 @@ while(1)
         Thetar = BOUND_PI(Thetar);
         Thetar_Adv = Thetar + Wr * Tsw;
 
-        %-- Current Controller --%     
-        Iqse_Ref = Ref;
+        %-- Position Controller --% 
+        if(Control_mode==3 && mod(Count,Sampling_Step_pc) == 0)
+            Thetarm_Ref = Ref;
+            disp(Thetarm_Ref)
+            Err_Thetarm = Thetarm_Ref - Thetarm;
+            Err_Thetarm = BOUND_PI(Err_Thetarm);
+            Wrm_Integ_Ref = Wrm_Integ_Ref + KiT_pc * (Err_Thetarm - (Kp_Anti_pc*Wrm_Ref_Anti)); % anti-wind up
+            Wrm_Ref_Fb = Wrm_Integ_Ref + Kp_pc * Err_Thetarm;                                        % PI controller
+    
+            if(Wrm_Ref_Fb >= Wrm_Rated)
+                Wrm_Ref_Sat = Wrm_Rated;
+            elseif(Wrm_Ref_Fb <= -Wrm_Rated)
+                Wrm_Ref_Sat = -Wrm_Rated;
+            else
+                Wrm_Ref_Sat = Wrm_Ref_Fb;
+            end
+
+            Wrm_Ref_Anti = Wrm_Ref - Wrm_Ref_Sat;
+            Wrm_Ref = Wrm_Ref_Sat;
+
+        end
+
+        %-- Velocity Controller --%
+        if((Control_mode==2 || Control_mode==3) && mod(Count,Sampling_Step_vc) == 0)
+            
+            if(Control_mode==2)
+                Wrm_Ref = Ref* Rpm2rm;
+            end
+
+            Err_Wrm = Wrm_Ref - Wrm;
+            Te_Integ_Ref = Te_Integ_Ref + KiT_vc * (Err_Wrm - (Kp_Anti_vc*Te_Ref_Anti)); % anti-wind up
+            % Te_Ref(i) = Te_Integ_Ref(i) + Kp_vc * Err_Wrm;                                        % PI controller
+            Te_Ref = Te_Integ_Ref - Kp_vc * Wrm;                                           % IP controller
+            Iqse_Ref_Fb = Te_Ref / (1.5*PolePair*LAMpm);
+            
+            if(Iqse_Ref_Fb >= Is_Rated) 
+                Iqse_Ref_Sat = Is_Rated;
+            elseif(Iqse_Ref_Fb <= -Is_Rated)
+                Iqse_Ref_Sat = -Is_Rated;
+            else
+                Iqse_Ref_Sat = Iqse_Ref_Fb;
+            end
+
+            Te_Ref_Sat = 1.5*PolePair*LAMpm*Iqse_Ref_Sat;
+            Te_Ref_Anti = Te_Ref - Te_Ref_Sat;
+            Iqse_Ref = Iqse_Ref_Sat;
+
+        end
+
+        %-- Current Controller --%
+        if(Control_mode==1)
+            Iqse_Ref = Ref;
+        end
 
         Ias = M_Ias;
         Ibs = M_Ibs;
@@ -351,7 +448,7 @@ while(1)
     M_TL_prev = M_TL;
 
     % --Data Send--%
-
+    
     % 1:Id(Measured), 2:Iq(Measured), 3:Id(Real), 4:Iq(Real), 5:I_A-phase, 6:I_B-phase, 7:I_C-phase
     Current_pubMsg.data = [Idse, Iqse, M_Idse, M_Iqse, M_Ias, M_Ibs, M_Ics]; 
     send(Current_pub,Current_pubMsg)
@@ -364,10 +461,14 @@ while(1)
     Torque_pubMsg.data = [Iqse_Ref*1.5*PolePair*LAMpm, M_Te, M_TL];
     send(Torque_pub,Torque_pubMsg)
 
-    % 1:Rotating Speed
-    Velocity_pubMsg.data = [M_Wrm*Rm2rpm]; 
+    % 1:Reference Speed, 2:Real Speed
+    Velocity_pubMsg.data = [Wrm_Ref*Rm2rpm, M_Wrm*Rm2rpm]; 
     send(Velocity_pub,Velocity_pubMsg)
-    
+
+    % 1:Reference Angle, 2:Real Angle
+    Angle_pubMsg.data = [Thetarm_Ref/(pi/180), M_Thetarm/(pi/180)];
+    send(Angle_pub,Angle_pubMsg)
+
     % Count Update
     Count = Count +1;
 end
