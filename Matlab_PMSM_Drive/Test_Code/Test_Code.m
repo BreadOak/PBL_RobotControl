@@ -42,8 +42,8 @@ Velocity_pubMsg.layout.data_offset = uint32(0);
 
 %Tstep = 50e-9; % sampling time
 %Tsw = 41e-6;   % control time
-Tstep = 5e-5; % sampling time
-Tsw = 5e-5;
+Tstep = 1e-6;
+Tsw = 1e-4;
 Sampling_Step = floor(Tsw/Tstep);
 
 TWOPI = 2*pi;
@@ -194,13 +194,13 @@ Count = 0;
 
 %-- Simulation main loop --%
 while(1)
-
+    tic
     SimulationTime = Count*Tstep;
 
     %-- Input variables setup --%
     % Rotating speed profile
     if(SimulationTime > 0.01)
-        Ref = 0.3/(1.5*PolePair*LAMpm);
+        Ref = 0.1/(1.5*PolePair*LAMpm);
     end
     % Load torque profile
     if(SimulationTime > 0.03)
@@ -351,7 +351,7 @@ while(1)
     M_TL_prev = M_TL;
 
     % --Data Send--%
-
+    
     % 1:Id(Measured), 2:Iq(Measured), 3:Id(Real), 4:Iq(Real), 5:I_A-phase, 6:I_B-phase, 7:I_C-phase
     Current_pubMsg.data = [Idse, Iqse, M_Idse, M_Iqse, M_Ias, M_Ibs, M_Ics]; 
     send(Current_pub,Current_pubMsg)
@@ -370,4 +370,5 @@ while(1)
     
     % Count Update
     Count = Count +1;
+    toc
 end
