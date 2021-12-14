@@ -7,4 +7,5 @@
 - Version_5 : Disturbance Observer(DOB).
 - Version_6 : H-infinity Control. -> It's incomplete.
 - Version_alpha : Integrated controller.
+- Version_beta : Revision
 ![image](https://user-images.githubusercontent.com/75024315/144813547-4a2d258c-d9c9-46fe-a7e1-6ddf4a624b18.png)
