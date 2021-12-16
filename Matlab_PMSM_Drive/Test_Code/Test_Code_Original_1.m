@@ -13,9 +13,9 @@ Step_Num = length(t);
 % Tsw_vc = 41e-5;            % Velocity control step
 % Tsw_pc = 41e-4;            % Position control step
 
-Tsw = 1e-4;               % Current control step
-Tsw_vc = 1e-3;            % Velocity control step
-Tsw_pc = 1e-2;            % Position control step
+Tsw = 0.1e-3;               % Current control step
+Tsw_vc = 1e-3;              % Velocity control step
+Tsw_pc = 10e-3;             % Position control step
 
 Sampling_Step = 10;
 Sampling_Step_vc = 100;
