@@ -40,14 +40,14 @@ Angel_pubMsg.layout.data_offset = uint32(0);
 %----------------------------%
 
 %Tstep = 50e-9; % Original Tstep
-Tstep = 1e-5;
+Tstep = 10e-6; 
 
 %Tsw = 41e-6;    % Original Current control step
 %Tsw_vc = 41e-5; % Original Velocity control step
 %Tsw_pc = 41e-4; % Original Position control step
-Tsw = 1e-4;
+Tsw = 0.1e-3;
 Tsw_vc = 1e-3;            
-Tsw_pc = 1e-2;            
+Tsw_pc = 10e-3;            
 
 % Sampling_Step = floor(Tsw/Tstep);
 % Sampling_Step_vc = floor(Tsw_vc/Tstep);
@@ -472,4 +472,5 @@ while(1)
 
     % Count Update
     Count = Count +1;
+    toc
 end
