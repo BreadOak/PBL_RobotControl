@@ -15,6 +15,7 @@
 #include "rcutils/cmdline_parser.h"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 // custom interfaces declaration
 #include "custom_interfaces/msg/references.hpp"
@@ -60,9 +61,18 @@ public:
     void run();
 
     void sendData();
-    void subscribe_voltage_qnode(const std_msgs::msg::Float64::SharedPtr msg);
-    void subscribe_ampere_qnode(const std_msgs::msg::Float64::SharedPtr msg);
-    void subscribe_gain_qnode(const std_msgs::msg::Float64::SharedPtr msg);
+    void subscribe_voltage_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+    void subscribe_ampere_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+    void subscribe_torque_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+    void subscribe_rpm_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+
+    std_msgs::msg::Float64 msg_test;
+
+    /* variables to plot */
+    float Idse, Iqse, M_Idse, M_Iqse, M_Ias, M_Ibs, M_Ics;
+    float Van_Ref, Vbn_Ref, Vcn_Ref;
+    float Torque_Ref, Torque_Real, Torque_Load;
+    float Rpm;
 
 Q_SIGNALS:
     void rosShutdown();
@@ -73,7 +83,8 @@ private:
     
     std::shared_ptr<rclcpp::Node> node;
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr data_publisher_qnode_;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr vol_subscriber_qnode_;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr amp_subscriber_qnode_;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr gain_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr vol_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr amp_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr torque_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr rpm_subscriber_qnode_;
 };
