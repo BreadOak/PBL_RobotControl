@@ -414,7 +414,6 @@ Kp_Anti_pc = 1/Kp_pc;
 
 %% Simulation 
 while(1)
-
     SimulationTime = Count*Tstep;
 
     % Input setting
@@ -775,27 +774,31 @@ while(1)
     Idse_prev = Idse; 
     Iqse_prev = Iqse;
 
-    % --Data Send--%
-    % 1:Id(Measured), 2:Iq(Measured), 3:Id(Real),  4:Iq(Real),   
-    % 5:I_A-phase,    6:I_B-phase,    7:I_C-phase, 8:Simulation Time.
-    Current_pubMsg.data = [Idse, Iqse, M_Idse, M_Iqse, M_Ias, M_Ibs, M_Ics, SimulationTime]; 
-    send(Current_pub,Current_pubMsg)
-
-    % 1:V_A-phase, 2:V_B-phase, 3:V_C-phase, 4:Simulation Time.
-    Voltage_pubMsg.data = [Van_Ref, Vbn_Ref, Vcn_Ref, SimulationTime]; 
-    send(Voltage_pub,Voltage_pubMsg)
-
-    % 1:Reference Torque, 2:Real Torque, 3:Load Torque, 4:Simulation Time.
-    Torque_pubMsg.data = [Iqse_Ref*1.5*PolePair*LAMpm, M_Te, M_TL, SimulationTime];
-    send(Torque_pub,Torque_pubMsg)
-
-    % 1:Reference Speed, 2:Real Speed, 3:Simulation Time.
-    Velocity_pubMsg.data = [Wrm_Ref*Rm2rpm, M_Wrm*Rm2rpm, SimulationTime]; 
-    send(Velocity_pub,Velocity_pubMsg)
-
-    % 1:Reference Angle, 2:Real Angle, 3:Simulation Time.
-    Angle_pubMsg.data = [Thetarm_Ref/(pi/180), M_Thetarm/(pi/180), SimulationTime];
-    send(Angle_pub,Angle_pubMsg)
+    if (mod(Count,1000) == 0)
+        tic
+        % --Data Send--%
+        % 1:Id(Measured), 2:Iq(Measured), 3:Id(Real),  4:Iq(Real),   
+        % 5:I_A-phase,    6:I_B-phase,    7:I_C-phase, 8:Simulation Time.
+        Current_pubMsg.data = [Idse, Iqse, M_Idse, M_Iqse, M_Ias, M_Ibs, M_Ics, SimulationTime]; 
+        send(Current_pub,Current_pubMsg)
+    
+        % 1:V_A-phase, 2:V_B-phase, 3:V_C-phase, 4:Simulation Time.
+        Voltage_pubMsg.data = [Van_Ref, Vbn_Ref, Vcn_Ref, SimulationTime]; 
+        send(Voltage_pub,Voltage_pubMsg)
+    
+        % 1:Reference Torque, 2:Real Torque, 3:Load Torque, 4:Simulation Time.
+        Torque_pubMsg.data = [Iqse_Ref*1.5*PolePair*LAMpm, M_Te, M_TL, SimulationTime];
+        send(Torque_pub,Torque_pubMsg)
+    
+        % 1:Reference Speed, 2:Real Speed, 3:Simulation Time.
+        Velocity_pubMsg.data = [Wrm_Ref*Rm2rpm, M_Wrm*Rm2rpm, SimulationTime]; 
+        send(Velocity_pub,Velocity_pubMsg)
+    
+        % 1:Reference Angle, 2:Real Angle, 3:Simulation Time.
+        Angle_pubMsg.data = [Thetarm_Ref/(pi/180), M_Thetarm/(pi/180), SimulationTime];
+        send(Angle_pub,Angle_pubMsg)
+        toc
+    end
 
     % Count Update
     Count = Count +1;
