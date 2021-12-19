@@ -27,7 +27,12 @@ namespace pmsm_studio
         Plot_Init(ui.plot_pmsm_7, -5, 5, 10);
         Plot_Init(ui.plot_pmsm_8, -5, 5, 10);
 
-		Plot_Init(ui_plot.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_1.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_2.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_3.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_4.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_5.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_6.plot_enlarged, -5, 5, 10);
 	}
 
     void MainWindow::realtimeDataSlot()
@@ -38,14 +43,19 @@ namespace pmsm_studio
 
 		if (key - lastPointKey > 0.0002)
 		{
-			Plot_Current(ui.plot_pmsm, qnode.Idse, qnode.M_Iqse);
+			Plot_Current(ui.plot_pmsm, qnode.Idse, qnode.M_Idse);
             Plot_Current(ui.plot_pmsm_4, qnode.Iqse, qnode.M_Iqse);
             Plot_Current(ui.plot_pmsm_5, qnode.M_Ias, qnode.M_Ibs, qnode.M_Ics);
             Plot_Current(ui.plot_pmsm_6, qnode.Van_Ref, qnode.Vbn_Ref, qnode.Vcn_Ref);
             Plot_Current(ui.plot_pmsm_7, qnode.Torque_Ref, qnode.Torque_Real, qnode.Torque_Load);
-            Plot_Current(ui.plot_pmsm_8, qnode.Rpm);
+            Plot_Current(ui.plot_pmsm_8, qnode.Ref_rpm, qnode.Cur_rpm);
 
-			Plot_Current(ui_plot.plot_enlarged, qnode.Idse, qnode.M_Iqse);
+			Plot_Current(ui_plot_1.plot_enlarged, qnode.Idse, qnode.M_Idse);
+            Plot_Current(ui_plot_2.plot_enlarged, qnode.Iqse, qnode.M_Iqse);
+            Plot_Current(ui_plot_3.plot_enlarged, qnode.M_Ias, qnode.M_Ibs, qnode.M_Ics);
+            Plot_Current(ui_plot_4.plot_enlarged, qnode.Van_Ref, qnode.Vbn_Ref, qnode.Vcn_Ref);
+            Plot_Current(ui_plot_5.plot_enlarged, qnode.Torque_Ref, qnode.Torque_Real, qnode.Torque_Load);
+            Plot_Current(ui_plot_6.plot_enlarged, qnode.Ref_rpm, qnode.Cur_rpm);
 			lastPointKey = key;
 		}
 		Plot_replot(ui.plot_pmsm);
@@ -54,7 +64,12 @@ namespace pmsm_studio
         Plot_replot(ui.plot_pmsm_6);
         Plot_replot(ui.plot_pmsm_7);
         Plot_replot(ui.plot_pmsm_8);
-        Plot_replot(ui_plot.plot_enlarged);
+        Plot_replot(ui_plot_1.plot_enlarged);
+        Plot_replot(ui_plot_2.plot_enlarged);
+        Plot_replot(ui_plot_3.plot_enlarged);
+        Plot_replot(ui_plot_4.plot_enlarged);
+        Plot_replot(ui_plot_5.plot_enlarged);
+        Plot_replot(ui_plot_6.plot_enlarged);
     }
 
 	void MainWindow::Plot_Init(QCustomPlot *ui_graph, int min_value, int max_value, int tick_count)
@@ -160,12 +175,22 @@ namespace pmsm_studio
 		ui_graph->replot();
 	}
 
+    void MainWindow::Plot_clear(QCustomPlot *ui_graph)
+    {
+        ui_graph->graph(0)->data().clear();
+        ui_graph->graph(1)->data().clear();
+        ui_graph->graph(2)->data().clear();
+    }
+
 	void MainWindow::on_plot_stop_button_clicked()
 	{
 		dataTimer->stop();
 	}
 	void MainWindow::on_plot_start_button_clicked()
 	{
-		dataTimer->start(0.02);
+        if(mode_selected_ == false)
+            RCLCPP_WARN(rclcpp::get_logger("PMSM Node"), "PLEASE SELECT CONTROL MODE");
+        else
+    		dataTimer->start(0.02);
 	}
 }
