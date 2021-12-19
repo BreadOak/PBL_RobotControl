@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1502</width>
-    <height>750</height>
+    <width>1699</width>
+    <height>955</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>QRosApp</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../../../../HERoEHS-ALICE-DisplayGUI/alice_display_gui/resources/images.qrc">
+   <iconset>
     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
   </property>
   <property name="locale">
@@ -26,8 +26,8 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>1481</width>
-      <height>681</height>
+      <width>1681</width>
+      <height>881</height>
      </rect>
     </property>
     <property name="title">
@@ -50,15 +50,15 @@
        </property>
        <widget class="QWidget" name="system_tab">
         <attribute name="title">
-         <string>ModeA</string>
+         <string>PMSM PLOT</string>
         </attribute>
         <widget class="QFrame" name="frame_2">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>241</width>
-           <height>431</height>
+           <width>311</width>
+           <height>651</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -69,7 +69,127 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_20">
           <item>
-           <widget class="QPushButton" name="none_module_button">
+           <widget class="QLabel" name="mode_selection_tab">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Mode Selection</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="5" column="0">
+              <widget class="QLabel" name="control_mode2_2">
+               <property name="text">
+                <string>Position</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QComboBox" name="position_comboBox">
+               <item>
+                <property name="text">
+                 <string>Not use</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>PI</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="control_mode1">
+               <property name="text">
+                <string>Current</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="control_mode2_3">
+               <property name="text">
+                <string>DOB</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QComboBox" name="current_comboBox">
+               <item>
+                <property name="text">
+                 <string>Not use</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>PI</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>MPC</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QComboBox" name="velocity_comboBox">
+               <item>
+                <property name="text">
+                 <string>Not use</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>PI</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>MPC</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>H-inf</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="control_mode2">
+               <property name="text">
+                <string>Velocity</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QComboBox" name="dob_comboBox">
+               <item>
+                <property name="text">
+                 <string>Not use</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>PI+DOB</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mode_selection">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -77,7 +197,22 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>None Module</string>
+             <string>Mode Combination</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -108,7 +243,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="popup_button">
+           <widget class="QPushButton" name="popup_button_1">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -116,12 +251,12 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Popup</string>
+             <string>Graph 1 (Idse, M_Idse)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="online_walking_module_button">
+           <widget class="QPushButton" name="popup_button_2">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -129,12 +264,12 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Walking Module</string>
+             <string>Graph 2 (Iqse, M_Iqse)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="walking_test_module_button">
+           <widget class="QPushButton" name="popup_button_3">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -142,12 +277,12 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Walking Test Module</string>
+             <string>Graph 3 (M_Ias, M_Ibs, M_Ics)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="torso_module_button">
+           <widget class="QPushButton" name="popup_button_4">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -155,12 +290,12 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Torso Module</string>
+             <string>Graph 4 (Van_ref, Vbn_ref, Vcn_ref)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="torso_test_module_button">
+           <widget class="QPushButton" name="popup_button_5">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -168,12 +303,12 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Torso Test Module</string>
+             <string>Graph 5 (Torque_ref, Torque_real,Torque_load)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="upper_body_module_button">
+           <widget class="QPushButton" name="popup_button_6">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -181,7 +316,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Upper Body Module</string>
+             <string>Graph 6 (Ref_rpm, Cur_rpm)</string>
             </property>
            </widget>
           </item>
@@ -191,8 +326,8 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>540</y>
-           <width>231</width>
+           <y>760</y>
+           <width>311</width>
            <height>41</height>
           </rect>
          </property>
@@ -203,10 +338,10 @@
         <widget class="QFrame" name="frame_4">
          <property name="geometry">
           <rect>
-           <x>260</x>
+           <x>330</x>
            <y>10</y>
-           <width>1181</width>
-           <height>581</height>
+           <width>1311</width>
+           <height>791</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -236,58 +371,79 @@
           </item>
          </layout>
         </widget>
-        <widget class="QSlider" name="horizontalSlider_2">
+        <widget class="QLineEdit" name="ref_data">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>480</y>
-           <width>231</width>
-           <height>51</height>
+           <y>710</y>
+           <width>191</width>
+           <height>41</height>
           </rect>
          </property>
-         <property name="minimum">
-          <number>-1</number>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
          </property>
-         <property name="maximum">
-          <number>1</number>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
          </property>
-         <property name="pageStep">
-          <number>1</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
         <widget class="QLabel" name="label_2">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>471</y>
-           <width>61</width>
+           <y>670</y>
+           <width>301</width>
            <height>31</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>min : -1</string>
+          <string>REF INPUT [A] [RPM] [Deg]</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="label_3">
+        <widget class="QPushButton" name="ref_data_send">
          <property name="geometry">
           <rect>
-           <x>188</x>
-           <y>470</y>
-           <width>61</width>
-           <height>31</height>
+           <x>210</x>
+           <y>710</y>
+           <width>111</width>
+           <height>41</height>
           </rect>
          </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>max : 1</string>
+          <string>send</string>
          </property>
         </widget>
        </widget>
        <widget class="QWidget" name="param_tab">
         <attribute name="title">
-         <string>ModeB</string>
+         <string>TEST tab</string>
         </attribute>
         <widget class="QCustomPlot" name="plot_pmsm_2" native="true">
          <property name="geometry">
@@ -434,10 +590,68 @@
           </item>
          </layout>
         </widget>
+        <widget class="QRadioButton" name="current_mode">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>573</y>
+           <width>291</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Not use</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="position_mode">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>627</y>
+           <width>291</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Position Control</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="velocity_mode">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>600</y>
+           <width>291</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Velocity Control</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="none_module_button">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>520</y>
+           <width>291</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>TEST BUTTON</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="walking_tab">
         <attribute name="title">
-         <string>ModeC</string>
+         <string>TEST plot tab</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_15">
          <item>
@@ -447,7 +661,7 @@
        </widget>
        <widget class="QWidget" name="torso_tab">
         <attribute name="title">
-         <string>ModeD</string>
+         <string>TEST widget tab</string>
         </attribute>
         <widget class="QFrame" name="frame_13">
          <property name="geometry">
@@ -754,6 +968,28 @@
            <width>201</width>
            <height>191</height>
           </rect>
+         </property>
+        </widget>
+        <widget class="QSlider" name="horizontalSlider_2">
+         <property name="geometry">
+          <rect>
+           <x>460</x>
+           <y>430</y>
+           <width>231</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="maximum">
+          <number>1</number>
+         </property>
+         <property name="pageStep">
+          <number>1</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </widget>
