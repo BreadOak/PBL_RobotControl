@@ -1,5 +1,7 @@
 # 0. Purpose of Development
-![image](https://user-images.githubusercontent.com/75024315/146764177-9190779c-d05e-4985-b72d-8137d0dd3757.png)
+[Outline]
+![image](https://user-images.githubusercontent.com/75024315/146764699-65282edc-9c5c-496c-8166-ad33a24b3e72.png)
+
 - MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
 - Connect Matlab to ROS2.
 - GUI production using ROS2.
@@ -8,7 +10,7 @@
 - Window11 wls2.
 - Ubuntu 18.04, ROS2 dashing.
 - MATLAB R2021b.
-- 
+
 # 2. Prerequisite
 - install add-on (ROS Toolbox v1.2).
 - install add-on (Robust Control Toolbox).
@@ -24,17 +26,20 @@
 - Version_4 : Multi-Parametric Toolbox(MPT) based MPC.
 - Version_5 : Disturbance Observer(DOB).
 - Version_6 : H-infinity Control. 
-- Version_alpha : Integrated controller.
-- Version_beta : Revision.
+- Version_alpha : Integrated Controller.
+- Version_beta : The latest version.
 
 # 4. Overall Structure
-[block diagram]
+[Block Diagram]
 ![image](https://user-images.githubusercontent.com/75024315/146320252-668cc404-c65a-4717-9e4b-b3a94f3cee56.png)
-- You can use a Combination of Control Modes.
-  0: Not use      1: Current(PI)   2: Current(MPC)      
-  0: Not use      1: Velocity(PI)  2: Velocity(MPC) 3: Velocity(H-inf)    %
-  0: Not use      1: Position(PI)      
-  0: Not use      1: Current(PI+DOB)
 
-# 5.Future Work
-- 
+- You can use a Combination of Control Modes.
+  - 0: Not use      1: Current(PI)   2: Current(MPC)      
+  - 0: Not use      1: Velocity(PI)  2: Velocity(MPC) 3: Velocity(H-inf)    
+  - 0: Not use      1: Position(PI)      
+  - 0: Not use      1: Current(PI+DOB)
+
+# 5. Future Work
+- Controller Maintenance.
+- Add More Control Modes.
+- ...
