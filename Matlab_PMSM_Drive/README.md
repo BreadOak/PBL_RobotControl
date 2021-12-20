@@ -3,9 +3,7 @@
 - Connect Matlab to ROS2.
 - GUI production using ROS2.
 
-
-![image](https://user-images.githubusercontent.com/75024315/146763956-3ee05afc-aec2-4340-8faa-a56a176816a1.png)
-
+![image](https://user-images.githubusercontent.com/75024315/146764177-9190779c-d05e-4985-b72d-8137d0dd3757.png)
 
 # 1.Development Environment
 - Window11 wls2.
