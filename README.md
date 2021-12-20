@@ -111,16 +111,16 @@
 ![ui_design](./matlab2ros/imgs/ui_design.png)
 
 ### 2.5 How to Use
-    ```
-    ## in docker workspace
-    $ docker exec -it gpu_ros2 /bin/bash
-    $ cm
-    $ sb
-    $ ros2 run pmsm_studio pmsm_studio
+```
+## in docker workspace
+$ docker exec -it gpu_ros2 /bin/bash
+$ cm
+$ sb
+$ ros2 run pmsm_studio pmsm_studio
 
-    # matlab workspace
-    Run ~/PBL_RobotControl/matlab2ros/matlab_node/Test_Code_Final.m
-    ```
+# matlab workspace
+Run ~/PBL_RobotControl/matlab2ros/matlab_node/Test_Code_Final.m
+```
 
 ### 2.6 ROS2 Connections
 <center><img src="./matlab2ros/imgs/rosgraph.png" width="500"></center>
