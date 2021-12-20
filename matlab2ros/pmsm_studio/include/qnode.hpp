@@ -69,6 +69,7 @@ public:
     void subscribe_ampere_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
     void subscribe_torque_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
     void subscribe_rpm_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+    void subscribe_angle_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
 
     std_msgs::msg::Float64 msg_test;
     std_msgs::msg::Int32 msg_mode;
@@ -86,6 +87,8 @@ public:
     float Van_Ref, Vbn_Ref, Vcn_Ref;
     float Torque_Ref, Torque_Real, Torque_Load;
     float Ref_rpm, Cur_rpm;
+    float Ang_Ref, Ang_Real;
+    float Sim_time;
 
 Q_SIGNALS:
     void rosShutdown();
@@ -106,4 +109,5 @@ private:
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr amp_subscriber_qnode_;
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr torque_subscriber_qnode_;
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr rpm_subscriber_qnode_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr angle_subscriber_qnode_;
 };

@@ -17,28 +17,30 @@ namespace pmsm_studio
 		dataTimer->start(0.02); // Interval 0 means to refresh as fast as possible
 		dataTimer->stop();
 
-		Plot_Init(ui.plot_pmsm, -5, 5, 10);
+		Plot_Init(ui.plot_pmsm, -5, 5, 10, legend_id);
         // Plot_example(ui.plot_pmsm);
         Plot_example(ui.plot_pmsm_2);
         // Plot_example(ui.plot_pmsm_3);
-        Plot_Init(ui.plot_pmsm_4, -5, 5, 10);
-        Plot_Init(ui.plot_pmsm_5, -5, 5, 10);
-        Plot_Init(ui.plot_pmsm_6, -5, 5, 10);
-        Plot_Init(ui.plot_pmsm_7, -5, 5, 10);
-        Plot_Init(ui.plot_pmsm_8, -5, 5, 10);
+        Plot_Init(ui.plot_pmsm_4, -5, 5, 10, legend_iq);
+        Plot_Init(ui.plot_pmsm_5, -5, 5, 10, legend_M_I);
+        Plot_Init(ui.plot_pmsm_6, -5, 5, 10, legend_V);
+        Plot_Init(ui.plot_pmsm_7, -5, 5, 10, legend_Torq);
+        Plot_Init(ui.plot_pmsm_8, -5, 5, 10, legend_rpm);
+        Plot_Init(ui.plot_pmsm_9, -5, 5, 10, legend_angle);
 
-		Plot_Init(ui_plot_1.plot_enlarged, -5, 5, 10);
-		Plot_Init(ui_plot_2.plot_enlarged, -5, 5, 10);
-		Plot_Init(ui_plot_3.plot_enlarged, -5, 5, 10);
-		Plot_Init(ui_plot_4.plot_enlarged, -5, 5, 10);
-		Plot_Init(ui_plot_5.plot_enlarged, -5, 5, 10);
-		Plot_Init(ui_plot_6.plot_enlarged, -5, 5, 10);
+		Plot_Init(ui_plot_1.plot_enlarged, -5, 5, 10, legend_id);
+		Plot_Init(ui_plot_2.plot_enlarged, -5, 5, 10, legend_iq);
+		Plot_Init(ui_plot_3.plot_enlarged, -5, 5, 10, legend_M_I);
+		Plot_Init(ui_plot_4.plot_enlarged, -5, 5, 10, legend_V);
+		Plot_Init(ui_plot_5.plot_enlarged, -5, 5, 10, legend_Torq);
+		Plot_Init(ui_plot_6.plot_enlarged, -5, 5, 10, legend_rpm);
+		Plot_Init(ui_plot_7.plot_enlarged, -5, 5, 10, legend_angle);
 	}
 
     void MainWindow::realtimeDataSlot()
     {   
  		static QTime time(QTime::currentTime());
-		key = time.elapsed() / 1000.0;
+		key = time.elapsed() / 100000.0;
 		static double lastPointKey = 0;
 
 		if (key - lastPointKey > 0.0002)
@@ -49,6 +51,7 @@ namespace pmsm_studio
             Plot_Current(ui.plot_pmsm_6, qnode.Van_Ref, qnode.Vbn_Ref, qnode.Vcn_Ref);
             Plot_Current(ui.plot_pmsm_7, qnode.Torque_Ref, qnode.Torque_Real, qnode.Torque_Load);
             Plot_Current(ui.plot_pmsm_8, qnode.Ref_rpm, qnode.Cur_rpm);
+            Plot_Current(ui.plot_pmsm_9, qnode.Ang_Ref, qnode.Ang_Real);
 
 			Plot_Current(ui_plot_1.plot_enlarged, qnode.Idse, qnode.M_Idse);
             Plot_Current(ui_plot_2.plot_enlarged, qnode.Iqse, qnode.M_Iqse);
@@ -56,6 +59,7 @@ namespace pmsm_studio
             Plot_Current(ui_plot_4.plot_enlarged, qnode.Van_Ref, qnode.Vbn_Ref, qnode.Vcn_Ref);
             Plot_Current(ui_plot_5.plot_enlarged, qnode.Torque_Ref, qnode.Torque_Real, qnode.Torque_Load);
             Plot_Current(ui_plot_6.plot_enlarged, qnode.Ref_rpm, qnode.Cur_rpm);
+            Plot_Current(ui_plot_7.plot_enlarged, qnode.Ang_Ref, qnode.Ang_Real);
 			lastPointKey = key;
 		}
 		Plot_replot(ui.plot_pmsm);
@@ -64,32 +68,45 @@ namespace pmsm_studio
         Plot_replot(ui.plot_pmsm_6);
         Plot_replot(ui.plot_pmsm_7);
         Plot_replot(ui.plot_pmsm_8);
+        Plot_replot(ui.plot_pmsm_9);
         Plot_replot(ui_plot_1.plot_enlarged);
         Plot_replot(ui_plot_2.plot_enlarged);
         Plot_replot(ui_plot_3.plot_enlarged);
         Plot_replot(ui_plot_4.plot_enlarged);
         Plot_replot(ui_plot_5.plot_enlarged);
         Plot_replot(ui_plot_6.plot_enlarged);
+        Plot_replot(ui_plot_7.plot_enlarged);
     }
 
-	void MainWindow::Plot_Init(QCustomPlot *ui_graph, int min_value, int max_value, int tick_count)
+	void MainWindow::Plot_Init(QCustomPlot *ui_graph, int min_value, int max_value, int tick_count, vector<string> legend)
 	{
-        // ui_graph->setLocale(QLocale(QLocale::English, QLocale::UnitedKingdom));
-		ui_graph->legend->setVisible(true);
-		ui_graph->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
-		ui_graph->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom | Qt::AlignRight);
+        ui_graph->legend->setVisible(true);
+        QFont legendFont = font();  // start out with MainWindow's font..
+        legendFont.setPointSize(9); // and make a bit smaller for legend
+        ui_graph->legend->setFont(legendFont);
+        ui_graph->legend->setBrush(QBrush(QColor(255,255,255,230)));
 
-		ui_graph->addGraph();
-		ui_graph->graph(0)->setPen(QPen(QColor(0, 255, 0)));
-		ui_graph->graph(0)->setName("X");
-		ui_graph->addGraph();
-		ui_graph->graph(1)->setPen(QPen(QColor(255, 0, 0)));
-		ui_graph->graph(1)->setName("Y");
-		ui_graph->addGraph();
-		ui_graph->graph(2)->setPen(QPen(QColor(0, 0, 255)));
-		ui_graph->graph(2)->setName("Z");
-		// ui_graph->xAxis->setLabel("Time(s)");
-		// ui_graph->yAxis->setLabel("m");
+        // ui_graph->setLocale(QLocale(QLocale::English, QLocale::UnitedKingdom));
+		// ui_graph->legend->setVisible(true);
+		// ui_graph->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
+		// ui_graph->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom | Qt::AlignRight);
+
+        for(int i=0; i<legend.size(); i++){
+		    ui_graph->addGraph();
+            // ui_graph->graph(i)->setPen(QPen(QColor(0, 255, 0)));
+            ui_graph->graph(i)->setPen(color[i]);
+		    ui_graph->graph(i)->setName(legend[i].c_str());
+        }
+
+		// ui_graph->addGraph();
+		// ui_graph->graph(0)->setPen(QPen(QColor(0, 255, 0)));
+		// ui_graph->graph(0)->setName("Y");
+		// ui_graph->addGraph();
+		// ui_graph->graph(1)->setPen(QPen(QColor(255, 0, 0)));
+		// ui_graph->graph(1)->setName("X");
+		// ui_graph->addGraph();
+		// ui_graph->graph(2)->setPen(QPen(QColor(0, 0, 255)));
+		// ui_graph->graph(2)->setName("Z");
 
 		ui_graph->legend->setVisible(false);
 		ui_graph->axisRect()->setAutoMargins(QCP::msNone);
@@ -99,7 +116,7 @@ namespace pmsm_studio
 
 		QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
 		timeTicker->setTimeFormat("%s");
-		timeTicker->setFieldWidth(timeTicker->tuSeconds, 1);
+		timeTicker->setFieldWidth(timeTicker->tuSeconds, 0.01);
 		timeTicker->setTickCount(tick_count);
 		ui_graph->xAxis->setTicker(timeTicker);
 
@@ -147,9 +164,9 @@ namespace pmsm_studio
     void MainWindow::Plot_Current(QCustomPlot *ui_graph, float val_1, float val_2, float val_3)
     {
         // ui_.plot_ft_l->yAxis->setRange(-3, 3);
-        ui_graph->graph(0)->addData(key, val_1);
-		ui_graph->graph(1)->addData(key, val_2);
-		ui_graph->graph(2)->addData(key, val_3);
+        ui_graph->graph(0)->addData(qnode.Sim_time, val_1);
+		ui_graph->graph(1)->addData(qnode.Sim_time, val_2);
+		ui_graph->graph(2)->addData(qnode.Sim_time, val_3);
 		ui_graph->graph(0)->rescaleValueAxis(true);
 		ui_graph->graph(1)->rescaleValueAxis(true);
 		ui_graph->graph(2)->rescaleValueAxis(true);
@@ -157,21 +174,27 @@ namespace pmsm_studio
     void MainWindow::Plot_Current(QCustomPlot *ui_graph, float val_1, float val_2)
     {
         // ui_.plot_ft_l->yAxis->setRange(-3, 3);
-        ui_graph->graph(0)->addData(key, val_1);
-		ui_graph->graph(1)->addData(key, val_2);
+        ui_graph->graph(0)->addData(qnode.Sim_time, val_1);
+		ui_graph->graph(1)->addData(qnode.Sim_time, val_2);
 		ui_graph->graph(0)->rescaleValueAxis(true);
 		ui_graph->graph(1)->rescaleValueAxis(true);
     }
     void MainWindow::Plot_Current(QCustomPlot *ui_graph, float val_1)
     {
         // ui_.plot_ft_l->yAxis->setRange(-3, 3);
-        ui_graph->graph(0)->addData(key, val_1);
+        ui_graph->graph(0)->addData(qnode.Sim_time, val_1);
 		ui_graph->graph(0)->rescaleValueAxis(true);
     }
 
 	void MainWindow::Plot_replot(QCustomPlot *ui_graph)
 	{
-		ui_graph->xAxis->setRange(key, 8, Qt::AlignRight);
+        ui_graph->legend->setVisible(true);
+        QFont legendFont = font();  // start out with MainWindow's font..
+        legendFont.setPointSize(9); // and make a bit smaller for legend
+        ui_graph->legend->setFont(legendFont);
+        ui_graph->legend->setBrush(QBrush(QColor(255,255,255,230)));
+
+		ui_graph->xAxis->setRange(qnode.Sim_time, 1, Qt::AlignRight);
 		ui_graph->replot();
 	}
 

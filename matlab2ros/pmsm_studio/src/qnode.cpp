@@ -49,6 +49,8 @@ QNode::QNode(int argc, char** argv) :
     Van_Ref = Vbn_Ref = Vcn_Ref = 0;
     Torque_Ref = Torque_Real = Torque_Load= 0;
     Ref_rpm = Cur_rpm = 0;
+    Ang_Ref = Ang_Real = 0;
+    Sim_time = 0;
 }
 void QNode::init()
 {
@@ -90,6 +92,10 @@ void QNode::init()
         "/Velocity",
         qos_profile,
         std::bind(&QNode::subscribe_rpm_qnode, this, _1));
+    angle_subscriber_qnode_ = node->create_subscription<std_msgs::msg::Float64MultiArray>(
+        "/Angle",
+        qos_profile,
+        std::bind(&QNode::subscribe_angle_qnode, this, _1));
 
     start();
     return;
@@ -174,4 +180,12 @@ void QNode::subscribe_rpm_qnode(const std_msgs::msg::Float64MultiArray::SharedPt
     // 1:Ref Rotating Speed, 2:Current Rotataing Speed
     Ref_rpm = msg->data[0];
     Cur_rpm = msg->data[1];
+    Sim_time = msg->data[2];
+}
+
+void QNode::subscribe_angle_qnode(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+{
+    // 1:Reference Angle, 2:Real Angle
+    Ang_Ref = msg->data[0];
+    Ang_Real = msg->data[1];
 }
