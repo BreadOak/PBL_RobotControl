@@ -7,7 +7,7 @@
 ![image](https://user-images.githubusercontent.com/75024315/146764699-65282edc-9c5c-496c-8166-ad33a24b3e72.png)
 
   1. MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
-  2. MATLAB to ROS2.
+  2. Connect Matlab to ROS2.
   3. GUI production using ROS2.
 
 ## 1. MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
@@ -50,7 +50,7 @@
   - Add More Control Modes.
   - ...
 
-## 2. MATLAB to ROS2.
+## 2. MATLAB to ROS2 & Design GUI
   - This meta-packages is for bridging between matlab and local ros2 dashing to control PMSM Driver by using gui interface.
   
 ### 2.1 Prerequisite
