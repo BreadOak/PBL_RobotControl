@@ -12,8 +12,8 @@
 
 ## 1. MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
 ### 1.1 Development Environment
-  - Window11 wls2.
-  - Ubuntu 18.04, ROS2 dashing.
+  - Window11 && wls2.
+  - Ubuntu 64-bit 18.04 && ROS2 Dashing.
   - MATLAB R2021b.
   
 ### 1.2 Prerequisite
@@ -126,6 +126,8 @@
 <center><img src="./matlab2ros/imgs/rosgraph.png" width="500"></center>
 
 ### 2.7 Results
+
+
 
 ## 3. Future Work
   - Controller Maintenance.
