@@ -45,7 +45,7 @@
   - 0: Not use      1: Position(PI)      
   - 0: Not use      1: Current(PI+DOB)
 
-## 2. MATLAB to ROS2 & Design GUI
+## 2. MATLAB to ROS2 && GUI Design
   - This meta-packages is for bridging between matlab and local ros2 dashing to control PMSM Driver by using gui interface.
   
 ### 2.1 Prerequisite
