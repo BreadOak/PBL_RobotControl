@@ -12,7 +12,7 @@
 
 ## 1. MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
 ### 1.1 Development Environment
-  - Window11 && wls2.
+  - Window11 && wsl2.
   - Ubuntu 64-bit 18.04 && ROS2 Dashing.
   - MATLAB R2021b.
   
@@ -50,7 +50,7 @@
   
 ### 2.1 Prerequisite
   - Ubuntu 64-bit 18.04 && ROS2 Dashing : Follow [ROS Installation](https://docs.ros.org/en/dashing/Installation.html)
-  - QT : Follow [QT Installation](https://ros-qtc-plugin.readthedocs.io/en/latest/_source/How-to-Install-Users.html)
+  - QT5 : Follow [QT Installation](https://ros-qtc-plugin.readthedocs.io/en/latest/_source/How-to-Install-Users.html)
   - Docker : Follow [Docker Installation](https://docs.docker.com/engine/install/ubuntu/)
 
 ### 2.2 Package Structure
@@ -108,7 +108,7 @@
     ```
     
 ### 2.4 UI Design
-![ui_design](./matlab2ros/imgs/ui_design.png)
+![ui_design](./matlab2ros/imgs/final_ui.png)
 
 ### 2.5 How to Use
 ```
@@ -126,8 +126,7 @@ Run ~/PBL_RobotControl/matlab2ros/matlab_node/Test_Code_Final.m
 <center><img src="./matlab2ros/imgs/rosgraph.png" width="500"></center>
 
 ### 2.7 Results
-
-
+<center><img src="./matlab2ros/imgs/final_gif.gif"></center>
 
 ## 3. Future Work
   - Improve Performance of the Controller.
