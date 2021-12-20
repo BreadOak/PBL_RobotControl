@@ -130,6 +130,7 @@
 
 
 ## 3. Future Work
-  - Controller Maintenance.
+  - Improve Performance of the Controller.
   - Add More Control Modes.
+  - Add More GUI Function Tabs.
   - ...
