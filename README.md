@@ -128,6 +128,6 @@
     ```
 
 ### 2.6 ROS2 Connections
-<center><img src="./imgs/rosgraph.png" width="500"></center>
+<center><img src="./matlab2ros/imgs/rosgraph.png" width="500"></center>
 
 ### 2.7 Results
