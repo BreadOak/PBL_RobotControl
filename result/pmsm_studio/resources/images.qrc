@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file>neuromeka_.png</file>
-    <file>neuromeka.png</file>
-  </qresource>
-</RCC>
