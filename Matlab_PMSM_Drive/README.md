@@ -1,5 +1,6 @@
 # 0. Purpose of Development
 [Outline]
+
 ![image](https://user-images.githubusercontent.com/75024315/146764699-65282edc-9c5c-496c-8166-ad33a24b3e72.png)
 
 - MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
