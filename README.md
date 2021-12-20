@@ -11,19 +11,19 @@
   3. GUI production using ROS2.
 
 ## 1. MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
-### 1.1 Development Environment
+### 1. 1 Development Environment
   - Window11 wls2.
   - Ubuntu 18.04, ROS2 dashing.
   - MATLAB R2021b.
   
-### 1.2 Prerequisite
+### 1. 2 Prerequisite
   - install add-on (ROS Toolbox v1.2).
   - install add-on (Robust Control Toolbox).
   - install add-on (Control System Toolbox).
   - install add-on (Signal Processing Toolbox).
   - install Multiparametric toolbox (MPT), using (install_mpt3.m) file.
 
-### 1.3 MATLAB-based PMSM Driver Version list
+### 1. 3 MATLAB-based PMSM Driver Version list
   - Version_0 : Current & Velocity Control.
   - Version_1 : Select [Current / Velosity / Position] Control Mode. (Same control frequency)
   - Version_2 : Select [Current / Velosity / Position] Control Mode. (Different control frequency)
@@ -34,7 +34,7 @@
   - Version_alpha : Integrated Controller.
   - Version_beta : The latest version.
 
-### 1.4 Overall Structure
+### 1. 4 Overall Structure
 
 [Block Diagram]
 ![image](https://user-images.githubusercontent.com/75024315/146320252-668cc404-c65a-4717-9e4b-b3a94f3cee56.png)
@@ -45,7 +45,7 @@
   - 0: Not use      1: Position(PI)      
   - 0: Not use      1: Current(PI+DOB)
 
-### 1.5 Future Work
+### 1. 5 Future Work
   - Controller Maintenance.
   - Add More Control Modes.
   - ...
@@ -53,12 +53,12 @@
 ## 2. MATLAB to ROS2.
   - This meta-packages is for bridging between matlab and local ros2 dashing to control PMSM Driver by using gui interface.
   
-### 2.1 Prerequisite
+### 2. 1 Prerequisite
   - Ubuntu 64-bit 18.04 && ROS2 Dashing : Follow [ROS Installation](https://docs.ros.org/en/dashing/Installation.html)
   - QT : Follow [QT Installation](https://ros-qtc-plugin.readthedocs.io/en/latest/_source/How-to-Install-Users.html)
   - Docker : Follow [Docker Installation](https://docs.docker.com/engine/install/ubuntu/)
 
-### 2.2 Package Structure
+### 2. 2 Package Structure
   - ROS2 PMSM Studio
     ```
     pmsm_studio
@@ -96,7 +96,7 @@
     0 directories, 9 files
     ```
     
-### 2.3 Environment Setting
+### 2. 3 Environment Setting
   - pmsm_studio
     ```
     $ cd ~/PBL_RobotControl/matlab2ros/env_settings
