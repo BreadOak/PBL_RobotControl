@@ -27,12 +27,14 @@ namespace pmsm_studio
         plot_window_4 = new QMainWindow;
         plot_window_5 = new QMainWindow;
         plot_window_6 = new QMainWindow;
+        plot_window_7 = new QMainWindow;
         ui_plot_1.setupUi(plot_window_1);
         ui_plot_2.setupUi(plot_window_2);
         ui_plot_3.setupUi(plot_window_3);
         ui_plot_4.setupUi(plot_window_4);
         ui_plot_5.setupUi(plot_window_5);
         ui_plot_6.setupUi(plot_window_6);
+        ui_plot_7.setupUi(plot_window_7);
 
         // QObject::connect(ui.actionAbout_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt())); // qApp is a global variable for the application
         // QObject::connect(ui.horizontalSlider_2, SIGNAL(valueChanged(int)),this, SLOT(readvalue(int)));
@@ -196,6 +198,11 @@ namespace pmsm_studio
     void MainWindow::on_popup_button_6_clicked()
     {
         plot_window_6->show();
+        RCLCPP_INFO(rclcpp::get_logger("PMSM Node"), "callback occured");
+    }
+    void MainWindow::on_popup_button_7_clicked()
+    {
+        plot_window_7->show();
         RCLCPP_INFO(rclcpp::get_logger("PMSM Node"), "callback occured");
     }
 }

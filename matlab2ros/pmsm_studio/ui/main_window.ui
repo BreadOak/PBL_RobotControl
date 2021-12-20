@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1699</width>
-    <height>955</height>
+    <width>1794</width>
+    <height>948</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>1681</width>
+      <width>1771</width>
       <height>881</height>
      </rect>
     </property>
@@ -320,6 +320,19 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="popup_button_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Graph 7 (Ref_Angle, Cur_Angle)</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
         <widget class="QPushButton" name="quit">
@@ -340,7 +353,7 @@
           <rect>
            <x>330</x>
            <y>10</y>
-           <width>1311</width>
+           <width>1401</width>
            <height>791</height>
           </rect>
          </property>
@@ -351,6 +364,12 @@
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
+          <item row="1" column="3">
+           <widget class="QCustomPlot" name="plot_pmsm_8" native="true"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QCustomPlot" name="plot_pmsm_7" native="true"/>
+          </item>
           <item row="0" column="2">
            <widget class="QCustomPlot" name="plot_pmsm_4" native="true"/>
           </item>
@@ -363,11 +382,8 @@
           <item row="1" column="1">
            <widget class="QCustomPlot" name="plot_pmsm_6" native="true"/>
           </item>
-          <item row="1" column="2">
-           <widget class="QCustomPlot" name="plot_pmsm_7" native="true"/>
-          </item>
-          <item row="1" column="3">
-           <widget class="QCustomPlot" name="plot_pmsm_8" native="true"/>
+          <item row="0" column="4">
+           <widget class="QCustomPlot" name="plot_pmsm_9" native="true"/>
           </item>
          </layout>
         </widget>
