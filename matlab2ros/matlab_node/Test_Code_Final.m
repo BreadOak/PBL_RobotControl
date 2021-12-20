@@ -83,10 +83,10 @@ mode_selection = 0;
 % 0: Not use      1: Position(PI)      
 % 0: Not use      1: Current(PI+DOB)
 %-------------------------------------------------------------------------%
-Current_Control_mode = 1;    
+Current_Control_mode = 0;    
 Velocity_Control_mode = 0;
 Position_Control_mode = 0;
-DOB_mode = 1;
+DOB_mode = 0;
 
 % % Subscirber Input
 
@@ -351,56 +351,56 @@ Bw = diag([1 1 1 1 1]);
 C1 = [gamma_d gamma_th gamma_w gamma_ialpha gamma_ibeta];
 Dzu = [gamma_ualpha gamma_ubeta];
 
-% setlmis([]);
-% X_inf = lmivar(1,[5,1]); % Symmetric Matrix 5 by 5
-% Z_inf = lmivar(2,[2,5]); % Matrix 2 by 5
+setlmis([]);
+X_inf = lmivar(1,[5,1]); % Symmetric Matrix 5 by 5
+Z_inf = lmivar(2,[2,5]); % Matrix 2 by 5
 
-% lmiterm([-1 1 1 X_inf],1,1); % X_inf > 0
+lmiterm([-1 1 1 X_inf],1,1); % X_inf > 0
 
-% % LMI
-% lmiterm([2 1 1 X_inf],Aa_Eta_1,1,'s');
-% lmiterm([2 1 1 Z_inf],Ba,1,'s');
-% lmiterm([2 1 2 0],Bw);
-% lmiterm([2 1 3 X_inf],1,C1');
-% lmiterm([2 1 3 -Z_inf],1,Dzu');
-% lmiterm([2 2 2 0],-gamma);
-% lmiterm([2 2 3 0],0);
-% lmiterm([2 3 3 0],-gamma);
+% LMI
+lmiterm([2 1 1 X_inf],Aa_Eta_1,1,'s');
+lmiterm([2 1 1 Z_inf],Ba,1,'s');
+lmiterm([2 1 2 0],Bw);
+lmiterm([2 1 3 X_inf],1,C1');
+lmiterm([2 1 3 -Z_inf],1,Dzu');
+lmiterm([2 2 2 0],-gamma);
+lmiterm([2 2 3 0],0);
+lmiterm([2 3 3 0],-gamma);
 
-% lmiterm([3 1 1 X_inf],Aa_Eta_2,1,'s');
-% lmiterm([3 1 1 Z_inf],Ba,1,'s');
-% lmiterm([3 1 2 0],Bw);
-% lmiterm([3 1 3 X_inf],1,C1');
-% lmiterm([3 1 3 -Z_inf],1,Dzu');
-% lmiterm([3 2 2 0],-gamma);
-% lmiterm([3 2 3 0],0);
-% lmiterm([3 3 3 0],-gamma);
+lmiterm([3 1 1 X_inf],Aa_Eta_2,1,'s');
+lmiterm([3 1 1 Z_inf],Ba,1,'s');
+lmiterm([3 1 2 0],Bw);
+lmiterm([3 1 3 X_inf],1,C1');
+lmiterm([3 1 3 -Z_inf],1,Dzu');
+lmiterm([3 2 2 0],-gamma);
+lmiterm([3 2 3 0],0);
+lmiterm([3 3 3 0],-gamma);
 
-% lmiterm([4 1 1 X_inf],Aa_Eta_3,1,'s');
-% lmiterm([4 1 1 Z_inf],Ba,1,'s');
-% lmiterm([4 1 2 0],Bw);
-% lmiterm([4 1 3 X_inf],1,C1');
-% lmiterm([4 1 3 -Z_inf],1,Dzu');
-% lmiterm([4 2 2 0],-gamma);
-% lmiterm([4 2 3 0],0);
-% lmiterm([4 3 3 0],-gamma);
+lmiterm([4 1 1 X_inf],Aa_Eta_3,1,'s');
+lmiterm([4 1 1 Z_inf],Ba,1,'s');
+lmiterm([4 1 2 0],Bw);
+lmiterm([4 1 3 X_inf],1,C1');
+lmiterm([4 1 3 -Z_inf],1,Dzu');
+lmiterm([4 2 2 0],-gamma);
+lmiterm([4 2 3 0],0);
+lmiterm([4 3 3 0],-gamma);
 
-% lmiterm([5 1 1 X_inf],Aa_Eta_4,1,'s');
-% lmiterm([5 1 1 Z_inf],Ba,1,'s');
-% lmiterm([5 1 2 0],Bw);
-% lmiterm([5 1 3 X_inf],1,C1');
-% lmiterm([5 1 3 -Z_inf],1,Dzu');
-% lmiterm([5 2 2 0],-gamma);
-% lmiterm([5 2 3 0],0);
-% lmiterm([5 3 3 0],-gamma);
+lmiterm([5 1 1 X_inf],Aa_Eta_4,1,'s');
+lmiterm([5 1 1 Z_inf],Ba,1,'s');
+lmiterm([5 1 2 0],Bw);
+lmiterm([5 1 3 X_inf],1,C1');
+lmiterm([5 1 3 -Z_inf],1,Dzu');
+lmiterm([5 2 2 0],-gamma);
+lmiterm([5 2 3 0],0);
+lmiterm([5 3 3 0],-gamma);
 
-% LMIs = getlmis;
-% options = [1e-5,0,0,0,0];
-% [TMIN,XFEAS] = feasp(LMIs,options,0);
+LMIs = getlmis;
+options = [1e-5,0,0,0,0];
+[TMIN,XFEAS] = feasp(LMIs,options,0);
 
-% X_inf = dec2mat(LMIs,XFEAS,X_inf);
-% Z_inf = dec2mat(LMIs,XFEAS,Z_inf);
-% F_inf = Z_inf*inv(X_inf); % state feedback gain
+X_inf = dec2mat(LMIs,XFEAS,X_inf);
+Z_inf = dec2mat(LMIs,XFEAS,Z_inf);
+F_inf = Z_inf*inv(X_inf); % state feedback gain
 
 %% Position(PI) controller setting
 Fc_pc = 5;
