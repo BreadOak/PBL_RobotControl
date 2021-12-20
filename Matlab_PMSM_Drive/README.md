@@ -1,23 +1,22 @@
-# 0.Purpose of Development
+# 0. Purpose of Development
+![image](https://user-images.githubusercontent.com/75024315/146764177-9190779c-d05e-4985-b72d-8137d0dd3757.png)
 - MATLAB-based PMSM Driver Design for Neuromeka-CORE simulation.
 - Connect Matlab to ROS2.
 - GUI production using ROS2.
 
-![image](https://user-images.githubusercontent.com/75024315/146764177-9190779c-d05e-4985-b72d-8137d0dd3757.png)
-
-# 1.Development Environment
+# 1. Development Environment
 - Window11 wls2.
 - Ubuntu 18.04, ROS2 dashing.
 - MATLAB R2021b.
 - 
-# 2.Prerequisite
+# 2. Prerequisite
 - install add-on (ROS Toolbox v1.2).
 - install add-on (Robust Control Toolbox).
 - install add-on (Control System Toolbox).
 - install add-on (Signal Processing Toolbox).
 - install Multiparametric toolbox (MPT), using (install_mpt3.m) file.
 
-# 3.MATLAB-based PMSM Driver Version list
+# 3. MATLAB-based PMSM Driver Version list
 - Version_0 : Current & Velocity Control.
 - Version_1 : Select [Current / Velosity / Position] Control Mode. (Same control frequency)
 - Version_2 : Select [Current / Velosity / Position] Control Mode. (Different control frequency)
@@ -28,7 +27,7 @@
 - Version_alpha : Integrated controller.
 - Version_beta : Revision.
 
-# 4.Overall Structure
+# 4. Overall Structure
 [block diagram]
 ![image](https://user-images.githubusercontent.com/75024315/146320252-668cc404-c65a-4717-9e4b-b3a94f3cee56.png)
 - You can use a Combination of Control Modes.
