@@ -108,7 +108,7 @@
     ```
     
 ### 2.4 UI Design
-![ui_design](./matlab2ros/imgs/ui_design.png)
+![ui_design](./matlab2ros/imgs/final_ui.png)
 
 ### 2.5 How to Use
 ```
@@ -126,8 +126,7 @@ Run ~/PBL_RobotControl/matlab2ros/matlab_node/Test_Code_Final.m
 <center><img src="./matlab2ros/imgs/rosgraph.png" width="500"></center>
 
 ### 2.7 Results
-
-
+<center><img src="./matlab2ros/imgs/final_gif.gif" width="500"></center>
 
 ## 3. Future Work
   - Improve Performance of the Controller.
