@@ -40,6 +40,9 @@
   - 0: Not use      1: Position(PI)      
   - 0: Not use      1: Current(PI+DOB)
 
+- Velocity(MPC) & Velocity(H-inf) -> Both controllers control the velocity and current at the same time.
+- Therefore, when you select the corresponding velocity control mode, the lower current control mode must be selected as (0: Not use).
+
 # 5. Future Work
 - Controller Maintenance.
 - Add More Control Modes.
