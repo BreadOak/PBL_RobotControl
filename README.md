@@ -111,7 +111,7 @@
     ```
     
 ### 2.4 UI Design
-![ui_design](./matlab2ros/imgs/final_ui.png)
+![ui_design](./matlab2ros/imgs/final.png)
 
 ### 2.5 How to Use
 ```
