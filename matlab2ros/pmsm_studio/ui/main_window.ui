@@ -14,7 +14,7 @@
    <string>QRosApp</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../../../../HERoEHS-ALICE-ControlGUI/alice_gui_test/resources/images.qrc">
+   <iconset>
     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
   </property>
   <property name="locale">
@@ -487,7 +487,7 @@
           </font>
          </property>
          <property name="text">
-          <string>REF INPUT [A] [RPM] [Deg]</string>
+          <string>REF INPUT [Nm] [RPM] [Deg]</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
