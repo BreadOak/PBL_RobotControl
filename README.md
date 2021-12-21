@@ -45,8 +45,8 @@
   - 0: Not use      1: Position(PI)      
   - 0: Not use      1: Current(PI+DOB)
 
-  - Velocity(MPC) & Velocity(H-inf) -> Both controllers control the velocity and current at the same time.
-  - Therefore, when you select the corresponding velocity control mode, the lower current control mode must be selected as (0: Not use).
+- Velocity(MPC) & Velocity(H-inf) -> Both controllers control the velocity and current at the same time.
+- Therefore, when you select the corresponding velocity control mode, the lower current control mode must be selected as (0: Not use).
 
 ## 2. MATLAB to ROS2 && GUI Design
   - This meta-packages is for bridging between matlab and local ros2 dashing to control PMSM Driver by using gui interface.
